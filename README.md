@@ -28,12 +28,12 @@ An AI-powered florist assistant built with DeepSeek API.
 
 ## 项目结构
 ai-flower-assistant/
-├── index.html              # 登录页面
+├── index.html             
 ├── styles/
-│   └── login.css           # 登录页面样式
+│   └── login.css          
 ├── scripts/
-│   └── login.js            # 登录页面交互脚本
-├── assets/ 
+│   └── login.js            
+├── assets/
 ---
 
 ## 项目亮点
