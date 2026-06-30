@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI花店助手 - AI文案生成</title>
+    <link rel="stylesheet" href="styles/ai-copywriting.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="brand-icon">
+                <svg viewBox="0 0 100 100" class="flower-icon">
+                    <circle cx="50" cy="50" r="8" fill="#FF6B8A"/>
+                    <ellipse cx="50" cy="25" rx="12" ry="20" fill="#FFB6C1"/>
+                    <ellipse cx="50" cy="75" rx="12" ry="20" fill="#FFB6C1"/>
+                    <ellipse cx="25" cy="50" rx="20" ry="12" fill="#FFB6C1"/>
+                    <ellipse cx="75" cy="50" rx="20" ry="12" fill="#FFB6C1"/>
+                    <ellipse cx="30" cy="30" rx="15" ry="18" fill="#FFC0CB" transform="rotate(-45 30 30)"/>
+                    <ellipse cx="70" cy="30" rx="15" ry="18" fill="#FFC0CB" transform="rotate(45 70 30)"/>
+                    <ellipse cx="30" cy="70" rx="15" ry="18" fill="#FFC0CB" transform="rotate(45 30 70)"/>
+                    <ellipse cx="70" cy="70" rx="15" ry="18" fill="#FFC0CB" transform="rotate(-45 70 70)"/>
+                </svg>
+            </div>
+            <div class="brand-info">
+                <h1 class="brand-title">AI花店助手</h1>
+                <p class="brand-subtitle">智能文案生成</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <button class="api-settings-btn" id="apiSettingsBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <span id="apiStatus">API已配置</span>
+            </button>
+            <button class="back-btn" id="backBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+                <span>返回首页</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="tabs-container">
+            <div class="tab active" id="tabMarketing">营销文案</div>
+            <div class="tab" id="tabFlower">花语描述</div>
+            <div class="tab" id="tabGreeting">节日祝福</div>
+        </div>
+
+        <div class="form-section" id="formMarketing">
+            <div class="form-card">
+                <h2 class="form-title">生成营销文案</h2>
+                <p class="form-desc">为您的花束产品生成吸引人的营销文案</p>
+                
+                <div class="form-group">
+                    <label class="form-label">花材类型</label>
+                    <div class="options-row">
+                        <label class="radio-label">
+                            <input type="radio" name="flowerType" value="rose" checked>
+                            <span class="radio-icon"></span>
+                            <span>玫瑰</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="flowerType" value="carnation">
+                            <span class="radio-icon"></span>
+                            <span>康乃馨</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="flowerType" value="lily">
+                            <span class="radio-icon"></span>
+                            <span>百合</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="flowerType" value="mixed">
+                            <span class="radio-icon"></span>
+                            <span>混搭</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">目标场合</label>
+                    <div class="options-row">
+                        <label class="radio-label">
+                            <input type="radio" name="occasion" value="birthday" checked>
+                            <span class="radio-icon"></span>
+                            <span>生日</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="occasion" value="confession">
+                            <span class="radio-icon"></span>
+                            <span>表白</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="occasion" value="anniversary">
+                            <span class="radio-icon"></span>
+                            <span>纪念日</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="occasion" value="thanksgiving">
+                            <span class="radio-icon"></span>
+                            <span>感恩</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">文案风格</label>
+                    <div class="options-row">
+                        <label class="radio-label">
+                            <input type="radio" name="style" value="romantic" checked>
+                            <span class="radio-icon"></span>
+                            <span>浪漫温馨</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="style" value="elegant">
+                            <span class="radio-icon"></span>
+                            <span>优雅简约</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="style" value="poetic">
+                            <span class="radio-icon"></span>
+                            <span>诗意文艺</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="style" value="humorous">
+                            <span class="radio-icon"></span>
+                            <span>活泼俏皮</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">自定义关键词（可选）</label>
+                    <input type="text" class="form-input" id="keywords" placeholder="输入想要包含的关键词，用逗号分隔">
+                </div>
+
+                <button class="generate-btn" id="generateMarketing">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                    <span>生成文案</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="form-section" id="formFlower" style="display: none;">
+            <div class="form-card">
+                <h2 class="form-title">生成花语描述</h2>
+                <p class="form-desc">为您的花束生成富有诗意的花语描述</p>
+                
+                <div class="form-group">
+                    <label class="form-label">花材类型</label>
+                    <div class="options-row">
+                        <label class="radio-label">
+                            <input type="radio" name="flowerType2" value="rose" checked>
+                            <span class="radio-icon"></span>
+                            <span>玫瑰</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="flowerType2" value="carnation">
+                            <span class="radio-icon"></span>
+                            <span>康乃馨</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="flowerType2" value="lily">
+                            <span class="radio-icon"></span>
+                            <span>百合</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="flowerType2" value="sunflower">
+                            <span class="radio-icon"></span>
+                            <span>向日葵</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">颜色偏好</label>
+                    <div class="options-row">
+                        <label class="radio-label">
+                            <input type="radio" name="color" value="red" checked>
+                            <span class="radio-icon"></span>
+                            <span>红色</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="color" value="pink">
+                            <span class="radio-icon"></span>
+                            <span>粉色</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="color" value="white">
+                            <span class="radio-icon"></span>
+                            <span>白色</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="color" value="mixed">
+                            <span class="radio-icon"></span>
+                            <span>多彩</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button class="generate-btn" id="generateFlower">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                    <span>生成花语</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="form-section" id="formGreeting" style="display: none;">
+            <div class="form-card">
+                <h2 class="form-title">生成节日祝福</h2>
+                <p class="form-desc">为特殊节日生成温馨的祝福文案</p>
+                
+                <div class="form-group">
+                    <label class="form-label">节日类型</label>
+                    <div class="options-row">
+                        <label class="radio-label">
+                            <input type="radio" name="holiday" value="valentines" checked>
+                            <span class="radio-icon"></span>
+                            <span>情人节</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="holiday" value="mothers">
+                            <span class="radio-icon"></span>
+                            <span>母亲节</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="holiday" value="teachers">
+                            <span class="radio-icon"></span>
+                            <span>教师节</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="holiday" value="christmas">
+                            <span class="radio-icon"></span>
+                            <span>圣诞节</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">祝福对象</label>
+                    <div class="options-row">
+                        <label class="radio-label">
+                            <input type="radio" name="recipient" value="lover" checked>
+                            <span class="radio-icon"></span>
+                            <span>爱人</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="recipient" value="mother">
+                            <span class="radio-icon"></span>
+                            <span>母亲</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="recipient" value="teacher">
+                            <span class="radio-icon"></span>
+                            <span>老师</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="recipient" value="friend">
+                            <span class="radio-icon"></span>
+                            <span>朋友</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button class="generate-btn" id="generateGreeting">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                    <span>生成祝福</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="result-section" id="resultSection" style="display: none;">
+            <div class="result-header">
+                <h2 class="result-title">生成结果</h2>
+                <p class="result-desc">AI为您生成的专属文案</p>
+            </div>
+            
+            <div class="result-cards" id="resultCards">
+            </div>
+
+            <div class="result-actions">
+                <button class="action-btn secondary" id="regenerateBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                        <path d="M3 3v5h5"/>
+                        <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+                        <path d="M16 21h5v-5"/>
+                    </svg>
+                    <span>重新生成</span>
+                </button>
+                <button class="action-btn primary" id="saveBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/>
+                        <polyline points="12 15 17 20 7 20 12 15"/>
+                        <line x1="12" y1="10" x2="12" y2="20"/>
+                    </svg>
+                    <span>保存文案</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="history-section">
+            <div class="history-header">
+                <h2 class="history-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    历史记录
+                </h2>
+                <span class="history-hint">自动保存最近5条生成记录</span>
+            </div>
+            <div class="history-list" id="historyList"></div>
+        </div>
+    </main>
+
+    <div class="bg-decoration">
+        <div class="flower-bg flower-1"></div>
+        <div class="flower-bg flower-2"></div>
+        <div class="flower-bg flower-3"></div>
+    </div>
+
+    <div class="modal-overlay" id="apiModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">API设置</h3>
+                <button class="modal-close" id="modalClose">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">DeepSeek API Key</label>
+                    <div class="input-group">
+                        <input type="password" class="form-input api-input" id="apiKeyInput" placeholder="请输入您的API Key">
+                        <button class="toggle-visibility" id="toggleVisibility">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="form-hint">API Key将安全保存在本地浏览器中，不会上传到服务器</p>
+                </div>
+                <div class="api-status" id="apiStatusDisplay">
+                    <div class="status-icon pending"></div>
+                    <span class="status-text">未配置API Key</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" id="clearApiKey">清除API Key</button>
+                <button class="modal-btn primary" id="saveApiKey">保存设置</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/ai-copywriting.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+{
+  "version": "1.0.0",
+  "description": "AI文案生成提示词管理配置文件，供 ai-copywriting.js 调用使用",
+
+  "systemPrompt": "你是一位拥有15年经验的高级花艺营销顾问，同时也是资深文案策划。\n\n熟悉鲜花寓意、节日营销、礼品文化以及消费者心理，能够根据不同送礼对象、节日、预算和文案风格，生成具有真实情感、自然表达、适合商业使用的花店文案。\n\n写作限制（必须严格遵守）：\n1. 禁止生成空洞抒情，每句话都要有具体信息或真实情感落点。\n2. 禁止连续出现四字成语，避免文言堆叠感。\n3. 禁止堆砌形容词，用名词和动词驱动表达。\n4. 不要使用网络鸡汤，拒绝套路化的情感金句和朋友圈语录体。\n5. 生成的多条文案之间必须有明显区别，不要只是替换几个词，每条文案应从不同角度、不同叙事方式切入。\n6. 不要在文案中直接出现用户选中的关键词（如花种、场合、风格名称），而是用意思、场景和氛围去表达这些概念，让文案读起来自然不生硬。",
+
+  "globalRules": {
+    "responseFormat": "请生成3条不同风格的文案，每条文案单独一行，以数字编号开头（如1. 2. 3.）。",
+    "language": "中文",
+    "tone": "优美、简洁、让人看到就想复制",
+    "maxTokens": 1024,
+    "temperature": 0.7
+  },
+
+  "templates": {
+    "marketing": {
+      "name": "营销文案",
+      "description": "针对特定花束、场合和风格生成营销推广文案",
+      "template": "请为{{flowerType}}花束生成一段{{style}}的营销文案，适用于{{occasion}}场合。{{keywordsSection}}请生成3条不同风格的文案，每条文案单独一行。",
+      "variables": {
+        "flowerType": {
+          "description": "花束类型",
+          "source": "input[name='flowerType']:checked",
+          "map": {
+            "rose": "玫瑰",
+            "carnation": "康乃馨",
+            "lily": "百合",
+            "sunflower": "向日葵",
+            "mixed": "混搭"
+          }
+        },
+        "occasion": {
+          "description": "适用场合",
+          "source": "input[name='occasion']:checked",
+          "map": {
+            "birthday": "生日",
+            "confession": "表白",
+            "anniversary": "纪念日",
+            "thanksgiving": "感恩"
+          }
+        },
+        "style": {
+          "description": "文案风格",
+          "source": "input[name='style']:checked",
+          "map": {
+            "romantic": "浪漫温馨、情意绵绵",
+            "elegant": "优雅简约、品味高雅",
+            "poetic": "诗意文艺、富有意境",
+            "humorous": "活泼俏皮、轻松有趣"
+          }
+        },
+        "keywords": {
+          "description": "关键词（可选）",
+          "source": "input#keywords",
+          "optional": true,
+          "conditionalTemplate": "请尽量包含以下关键词：{{keywords}}。"
+        }
+      },
+      "tags": ["营销文案", "{{flowerType}}", "{{occasion}}", "{{styleShort}}"],
+      "styleShortMap": {
+        "romantic": "浪漫温馨",
+        "elegant": "优雅简约",
+        "poetic": "诗意文艺",
+        "humorous": "活泼俏皮"
+      }
+    },
+
+    "flower": {
+      "name": "花语描述",
+      "description": "为特定颜色和品种的花卉生成富有诗意的花语描述",
+      "template": "请为{{color}}{{flowerType}}生成一段富有诗意的花语描述，介绍其象征意义和情感表达。请生成3条不同风格的花语描述，每条单独一行。",
+      "variables": {
+        "flowerType": {
+          "description": "花卉类型",
+          "source": "input[name='flowerType2']:checked",
+          "map": {
+            "rose": "玫瑰",
+            "carnation": "康乃馨",
+            "lily": "百合",
+            "sunflower": "向日葵",
+            "mixed": "混搭"
+          }
+        },
+        "color": {
+          "description": "花朵颜色",
+          "source": "input[name='color']:checked",
+          "map": {
+            "red": "红色",
+            "pink": "粉色",
+            "white": "白色",
+            "mixed": "多彩"
+          }
+        }
+      },
+      "tags": ["花语描述", "{{flowerType}}", "{{color}}"]
+    },
+
+    "greeting": {
+      "name": "节日祝福",
+      "description": "针对特定节日和收件人生成温馨祝福文案",
+      "template": "请为{{holiday}}生成一段给{{recipient}}的温馨祝福文案。请生成3条不同风格的祝福，每条单独一行。",
+      "variables": {
+        "holiday": {
+          "description": "节日类型",
+          "source": "input[name='holiday']:checked",
+          "map": {
+            "valentines": "情人节",
+            "mothers": "母亲节",
+            "teachers": "教师节",
+            "christmas": "圣诞节"
+          }
+        },
+        "recipient": {
+          "description": "收件人",
+          "source": "input[name='recipient']:checked",
+          "map": {
+            "lover": "爱人",
+            "mother": "母亲",
+            "teacher": "老师",
+            "friend": "朋友"
+          }
+        }
+      },
+      "tags": ["节日祝福", "{{holiday}}", "{{recipient}}"]
+    }
+  },
+
+  "bestPractices": {
+    "promptEngineering": [
+      "使用明确的角色设定，让AI理解其专业背景和任务定位",
+      "提供具体的上下文信息（花种、场合、风格等），避免模糊指令",
+      "限定输出格式（3条、每条单独一行），便于程序解析",
+      "对可选参数使用条件插入，避免出现空值导致语义不通",
+      "设置合适的temperature（0.7）平衡创意与稳定性"
+    ],
+    "variableReplacement": [
+      "所有变量使用双花括号语法 {{variableName}} 标记",
+      "变量值优先从对应map中查找中文名称，找不到则使用原始值",
+      "可选变量为空时，其关联的conditionalTemplate整段不插入",
+      "tags中的变量同样需要替换为中文显示名称",
+      "styleShortMap用于tags中的风格简称，与style map的完整描述区分"
+    ],
+    "errorHandling": [
+      "API响应可能包含数字编号前缀，解析时需用正则去除",
+      "空行和空白字符需过滤，防止解析出空文案",
+      "API返回格式异常时应抛出明确错误信息",
+      "网络请求失败时应提示用户检查API Key和网络连接"
+    ]
+  }
+}

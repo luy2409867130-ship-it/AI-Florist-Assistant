@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI花店助手 - 鲜花推荐</title>
+    <link rel="stylesheet" href="styles/flower-recommend.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="brand-icon">
+                <svg viewBox="0 0 100 100" class="flower-icon">
+                    <circle cx="50" cy="50" r="8" fill="#FF6B8A"/>
+                    <ellipse cx="50" cy="25" rx="12" ry="20" fill="#FFB6C1"/>
+                    <ellipse cx="50" cy="75" rx="12" ry="20" fill="#FFB6C1"/>
+                    <ellipse cx="25" cy="50" rx="20" ry="12" fill="#FFB6C1"/>
+                    <ellipse cx="75" cy="50" rx="20" ry="12" fill="#FFB6C1"/>
+                    <ellipse cx="30" cy="30" rx="15" ry="18" fill="#FFC0CB" transform="rotate(-45 30 30)"/>
+                    <ellipse cx="70" cy="30" rx="15" ry="18" fill="#FFC0CB" transform="rotate(45 70 30)"/>
+                    <ellipse cx="30" cy="70" rx="15" ry="18" fill="#FFC0CB" transform="rotate(45 30 70)"/>
+                    <ellipse cx="70" cy="70" rx="15" ry="18" fill="#FFC0CB" transform="rotate(-45 70 70)"/>
+                </svg>
+            </div>
+            <div class="brand-info">
+                <h1 class="brand-title">AI花店助手</h1>
+                <p class="brand-subtitle">智能鲜花推荐</p>
+            </div>
+        </div>
+        <button class="back-btn" id="backBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+            <span>返回首页</span>
+        </button>
+    </header>
+
+    <main class="main-content">
+        <div class="step-indicator">
+            <div class="step active" id="step1">
+                <span class="step-number">1</span>
+                <span class="step-text">选择收礼对象</span>
+            </div>
+            <div class="step" id="step2">
+                <span class="step-number">2</span>
+                <span class="step-text">选择预算</span>
+            </div>
+            <div class="step" id="step3">
+                <span class="step-number">3</span>
+                <span class="step-text">选择场景</span>
+            </div>
+            <div class="step" id="step4">
+                <span class="step-number">4</span>
+                <span class="step-text">查看推荐</span>
+            </div>
+        </div>
+
+        <div class="question-section" id="section1">
+            <div class="question-card">
+                <div class="question-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </div>
+                <h2 class="question-title">送给谁？</h2>
+                <p class="question-desc">请选择收礼对象，我们会根据不同对象推荐合适的花束</p>
+                <div class="options-grid">
+                    <div class="option-card" data-value="girlfriend" id="option_girlfriend">
+                        <div class="option-icon girlfriend-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <span class="option-label">女朋友</span>
+                        <span class="option-desc">浪漫甜蜜之选</span>
+                    </div>
+                    <div class="option-card" data-value="mom" id="option_mom">
+                        <div class="option-icon mom-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <span class="option-label">妈妈</span>
+                        <span class="option-desc">感恩温馨之选</span>
+                    </div>
+                    <div class="option-card" data-value="teacher" id="option_teacher">
+                        <div class="option-icon teacher-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <span class="option-label">老师</span>
+                        <span class="option-desc">尊敬感谢之选</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-section" id="section2" style="display: none;">
+            <div class="question-card">
+                <div class="question-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                        <line x1="16" y1="8" x2="16" y2="16"/>
+                        <line x1="8" y1="8" x2="8" y2="16"/>
+                    </svg>
+                </div>
+                <h2 class="question-title">预算范围？</h2>
+                <p class="question-desc">请选择您的预算，我们会推荐合适价位的花束</p>
+                <div class="options-grid">
+                    <div class="option-card" data-value="100" id="option_100">
+                        <div class="option-icon budget-icon budget-100">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <span class="option-label">100元</span>
+                        <span class="option-desc">经济实惠</span>
+                    </div>
+                    <div class="option-card" data-value="300" id="option_300">
+                        <div class="option-icon budget-icon budget-300">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <span class="option-label">300元</span>
+                        <span class="option-desc">精美雅致</span>
+                    </div>
+                    <div class="option-card" data-value="500" id="option_500">
+                        <div class="option-icon budget-icon budget-500">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <span class="option-label">500元</span>
+                        <span class="option-desc">高端豪华</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-section" id="section3" style="display: none;">
+            <div class="question-card">
+                <div class="question-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                </div>
+                <h2 class="question-title">什么场合？</h2>
+                <p class="question-desc">请选择使用场景，我们会推荐应景的花束</p>
+                <div class="options-grid">
+                    <div class="option-card" data-value="birthday" id="option_birthday">
+                        <div class="option-icon occasion-icon occasion-birthday">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                            </svg>
+                        </div>
+                        <span class="option-label">生日</span>
+                        <span class="option-desc">庆祝生辰</span>
+                    </div>
+                    <div class="option-card" data-value="confession" id="option_confession">
+                        <div class="option-icon occasion-icon occasion-confession">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </div>
+                        <span class="option-label">表白</span>
+                        <span class="option-desc">爱意表达</span>
+                    </div>
+                    <div class="option-card" data-value="anniversary" id="option_anniversary">
+                        <div class="option-icon occasion-icon occasion-anniversary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                        </div>
+                        <span class="option-label">纪念日</span>
+                        <span class="option-desc">铭记美好</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-section">
+            <button class="nav-btn prev-btn" id="prevBtn" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 19l-7-7 7-7"/>
+                </svg>
+                <span>上一步</span>
+            </button>
+            <button class="nav-btn next-btn" id="nextBtn">
+                <span>下一步</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+            <button class="nav-btn recommend-btn" id="recommendBtn" style="display: none;">
+                <span>生成推荐</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="result-section" id="resultSection" style="display: none;">
+            <div class="result-header">
+                <div class="result-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                    </svg>
+                </div>
+                <h2 class="result-title">为您推荐的花束</h2>
+                <p class="result-desc">根据您的需求，我们为您精心挑选了以下花束</p>
+            </div>
+            <div class="result-grid" id="resultGrid">
+            </div>
+            <div class="result-footer">
+                <button class="restart-btn" id="restartBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                        <path d="M3 3v5h5"/>
+                        <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+                        <path d="M16 21h5v-5"/>
+                    </svg>
+                    <span>重新选择</span>
+                </button>
+                <button class="to-copywriting-btn" id="toCopywritingBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                    <span>生成营销文案</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <div class="bg-decoration">
+        <div class="flower-bg flower-1"></div>
+        <div class="flower-bg flower-2"></div>
+        <div class="flower-bg flower-3"></div>
+    </div>
+
+    <script src="scripts/flower-recommend.js"></script>
+</body>
+</html>
