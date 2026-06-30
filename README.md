@@ -20,11 +20,20 @@ An AI-powered florist assistant built with DeepSeek API.
 
 ## 功能展示
 <img width="1915" height="1040" alt="image" src="https://github.com/user-attachments/assets/fa537a2e-9f3d-4f02-a030-b6f514bc3296" />
+<img width="1919" height="1040" alt="image" src="https://github.com/user-attachments/assets/f74f48a2-55d6-46c1-9df7-cba8b178793d" />
+<img width="1919" height="1040" alt="image" src="https://github.com/user-attachments/assets/cc87d863-66d4-4551-84a6-5f0ae5f7bd43" />
+<img width="1919" height="1041" alt="image" src="https://github.com/user-attachments/assets/7686d22b-4a07-4667-b89f-b49fb6482b47" />
 
 ---
 
 ## 项目结构
-
+ai-flower-assistant/
+├── index.html              # 登录页面
+├── styles/
+│   └── login.css           # 登录页面样式
+├── scripts/
+│   └── login.js            # 登录页面交互脚本
+├── assets/ 
 ---
 
 ## 项目亮点
